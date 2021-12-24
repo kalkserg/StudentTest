@@ -7,6 +7,7 @@ import com.example.service.CsvToBeanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 @Service
@@ -18,34 +19,35 @@ public class ExercisesView {
     @Autowired
     CalculateRaitingService calculateRaitingService;
 
+    public void run(ResourceBundle rb) {
+        System.out.println(rb.getString("welcome"));
 
-    public void run() {
         Scanner myScanner = new Scanner(System.in);
 
-        System.out.print("Enter Firstname: ");
+        System.out.print(rb.getString("firstname"));
         String firstName = myScanner.nextLine();
-        System.out.print("Enter Lastname: ");
+        System.out.print(rb.getString("lastname"));
         String lastName = myScanner.nextLine();
 
         ExercisesList exercisesList = csvToBeanService.getList();
 //        exerciseList = csvToBeanService.getExerciseList();
 //        csvToBeanService.getList();
 
-        System.out.println(exercisesList.size() + " questions for " + firstName.toUpperCase() + " " + lastName.toUpperCase() + ": ");
+        System.out.println(exercisesList.size() + rb.getString("questions_for")+ firstName.toUpperCase() + " " + lastName.toUpperCase() + ": ");
         int count = 0;
         for (Exercise e : exercisesList.getExerciseList()) {
-            System.out.println("Question " + (++count) + ": " + e.getQuestion());
-            System.out.print("Answer " + count + ": ");
+            System.out.println(rb.getString("question") +  (++count) + ": " + e.getQuestion() + " (" + e.getWeight() + " " + rb.getString("weight") + ")");
+            System.out.print(rb.getString("answer") + count + ": ");
             String answer = myScanner.nextLine();
             if (answer.equals(e.getAnswer())) {
-                System.out.println("   Right!"); e.setMark(true);
+                System.out.println("\t" + rb.getString("right")); e.setMark(true);
             } else {
-                System.out.println("   Wrong!"); e.setMark(false);
+                System.out.println("\t" + rb.getString("wrong")); e.setMark(false);
             };
         }
-        System.out.println("Correct answers " + exercisesList.getAllScore(true) + " (" + String.format("%.2f",exercisesList.getAllScore(true)*100./count) + "%)");
+        System.out.println(rb.getString("correct_answer") + exercisesList.getAllScore(true) + " (" + String.format("%.2f",exercisesList.getAllScore(true)*100./count) + "%)");
 
-        calculateRaitingService.calculate(exercisesList);
+        calculateRaitingService.calculate(exercisesList,rb);
     }
 
 }

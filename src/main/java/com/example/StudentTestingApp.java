@@ -18,8 +18,8 @@ public class StudentTestingApp {
         logger.setLevel(Level.toLevel("error"));
 
         //set locale
-        Locale currentlocale = new Locale("");
-//        Locale currentlocale = Locale.getDefault();
+//        Locale currentlocale = new Locale("");
+        Locale currentlocale = Locale.getDefault();
         ResourceBundle rb = ResourceBundle.getBundle("Localization", currentlocale);
 
         String filename = getLocalizedResource(currentlocale, "Question", "csv");

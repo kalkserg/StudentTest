@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.util.ResourceBundle;
+
 @PropertySource("classpath:raiting.properties")
 @Service
 public class CalculateRaitingService {
@@ -13,13 +15,13 @@ public class CalculateRaitingService {
     @Value("${raiting.score}")
     private int RAITING;
 
-    public void calculate(ExercisesList exercisesList) {
+    public void calculate(ExercisesList exercisesList, ResourceBundle rb) {
         int counter = 0;
         for (Exercise e : exercisesList.getExerciseList()) {
             if (e.getMark()) counter += e.getWeight();
         }
-        if (counter >= RAITING) System.out.println("PASS");
-        else System.out.println("NOT PASS");
-        System.out.println("Score " + counter + " from " + RAITING);
+        if (counter >= RAITING) System.out.println(rb.getString("pass"));
+        else System.out.println(rb.getString("not_pass"));
+        System.out.println(rb.getString("score") + counter + " " + rb.getString("from") + RAITING);
     }
 }
