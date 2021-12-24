@@ -30,24 +30,23 @@ public class ExercisesView {
         String lastName = myScanner.nextLine();
 
         ExercisesList exercisesList = csvToBeanService.getList();
-//        exerciseList = csvToBeanService.getExerciseList();
-//        csvToBeanService.getList();
 
-        System.out.println(exercisesList.size() + rb.getString("questions_for")+ firstName.toUpperCase() + " " + lastName.toUpperCase() + ": ");
+        System.out.println(exercisesList.size() + rb.getString("questions_for") + firstName.toUpperCase() + " " + lastName.toUpperCase() + ": ");
         int count = 0;
         for (Exercise e : exercisesList.getExerciseList()) {
-            System.out.println(rb.getString("question") +  (++count) + ": " + e.getQuestion() + " (" + e.getWeight() + " " + rb.getString("weight") + ")");
+            System.out.println(rb.getString("question") + (++count) + ": " + e.getQuestion() + " (" + e.getWeight() + " " + rb.getString("weight") + ")");
             System.out.print(rb.getString("answer") + count + ": ");
             String answer = myScanner.nextLine();
             if (answer.equals(e.getAnswer())) {
-                System.out.println("\t" + rb.getString("right")); e.setMark(true);
+                System.out.println("\t" + rb.getString("right"));
+                e.setMark(true);
             } else {
-                System.out.println("\t" + rb.getString("wrong")); e.setMark(false);
-            };
+                System.out.println("\t" + rb.getString("wrong"));
+                e.setMark(false);
+            }
         }
-        System.out.println(rb.getString("correct_answer") + exercisesList.getAllScore(true) + " (" + String.format("%.2f",exercisesList.getAllScore(true)*100./count) + "%)");
+        System.out.println(rb.getString("correct_answer") + exercisesList.getAllScore(true) + " (" + String.format("%.2f", exercisesList.getAllScore(true) * 100. / count) + "%)");
 
-        calculateRaitingService.calculate(exercisesList,rb);
+        calculateRaitingService.calculate(exercisesList, rb);
     }
-
 }

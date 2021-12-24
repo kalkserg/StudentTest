@@ -1,8 +1,5 @@
 package com.example.model;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 public class ExercisesList {
@@ -25,8 +22,7 @@ public class ExercisesList {
         this.exerciseList = exerciseList;
     }
 
-    public int size(){
+    public int size() {
         return exerciseList.size();
     }
-
 }
