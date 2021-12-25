@@ -20,6 +20,9 @@ public class ExercisesView {
     CalculateRaitingService calculateRaitingService;
 
     public void run(ResourceBundle rb) {
+
+        ExercisesList exercisesList = csvToBeanService.getList();
+
         System.out.println(rb.getString("welcome"));
 
         Scanner myScanner = new Scanner(System.in);
@@ -29,9 +32,7 @@ public class ExercisesView {
         System.out.print(rb.getString("lastname"));
         String lastName = myScanner.nextLine();
 
-        ExercisesList exercisesList = csvToBeanService.getList();
-
-        System.out.println(exercisesList.size() + rb.getString("questions_for") + firstName.toUpperCase() + " " + lastName.toUpperCase() + ": ");
+        System.out.println(exercisesList.size() + " " + rb.getString("questions_for") + firstName.toUpperCase() + " " + lastName.toUpperCase() + ": ");
         int count = 0;
         for (Exercise e : exercisesList.getExerciseList()) {
             System.out.println(rb.getString("question") + (++count) + ": " + e.getQuestion() + " (" + e.getWeight() + " " + rb.getString("weight") + ")");

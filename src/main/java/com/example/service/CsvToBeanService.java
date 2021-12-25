@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.StudentTestingApp;
 import com.example.model.Exercise;
 import com.example.model.ExercisesList;
 import com.opencsv.CSVParser;
@@ -8,14 +9,15 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +44,17 @@ public class CsvToBeanService {
         // Create csvreader object
         CSVReader csvReader = null;
         try {
-            File file = ResourceUtils.getFile(fileName);
-            Reader reader = Files.newBufferedReader(file.toPath());
+            InputStream inputStream = StudentTestingApp.class.getResourceAsStream("/" + fileName);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//
+//
+//            System.out.println(StudentTestingApp.class.getResource("/Question_ru.csv"));
+
+//            File file = ResourceUtils.getFile(fileName);
+//            String filename = file.getName();
+//            System.out.println(filename);
+
+//            Reader reader = Files.newBufferedReader(file.toPath());
 
             CSVParser parser = new CSVParserBuilder()
                     .withSeparator(';')
@@ -53,10 +64,12 @@ public class CsvToBeanService {
                     .withSkipLines(0)
                     .withCSVParser(parser)
                     .build();
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             System.out.println("File not found " + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.exit(1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.exit(1);
         }
         CsvToBean<Exercise> csvToBean = new CsvToBean<>();
         csvToBean.setCsvReader(csvReader);
@@ -66,7 +79,7 @@ public class CsvToBeanService {
             list = csvToBean.parse();
         } catch (Exception ex) {
             System.out.println("Wrong format file  ");
-            throw new RuntimeException();
+            System.exit(1);
         }
 
         // print details of Bean object
