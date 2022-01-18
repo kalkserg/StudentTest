@@ -29,35 +29,17 @@ public class StudentTestingApp {
 
         String filename = getLocalizedResource(currentlocale, "Question", "csv");
 
-//        try (InputStream inputStream = StudentTestingApp.class.getResourceAsStream("/Question_ru.csv");
-//             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-//            String contents = reader.lines()
-//                    .collect(Collectors.joining(System.lineSeparator()));
-//            System.out.println(contents);
-//        }catch (Exception ex){
-//            System.out.println("AAAAAAAAAAAAAAAA");
-//        }
-//
-//        try (InputStream inputStream = StudentTestingApp.class.getResourceAsStream("/Question_ru.csv");
-//             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-//            String contents = reader.lines()
-//                    .collect(Collectors.joining(System.lineSeparator()));
-//            System.out.println(contents);
-//        }catch (Exception ex){
-//            System.out.println("AAAAAAAAAAAAAAAA");
-//        }
-
         //create context
         ApplicationContext context = new AnnotationConfigApplicationContext("com.example");
 
         //set file
         CsvToBeanService csvToBeanService = (CsvToBeanService) context.getBean("csvToBeanService");
-//        csvToBeanService.setFile("tion_ru.csv");
         csvToBeanService.setFile(filename);
 
         //run
         ExercisesView exercisesView = (ExercisesView) context.getBean("exercisesView");
         exercisesView.run(rb);
+        StudentTestingApp.class.getResource("/");
     }
 
     private static String getLocalizedResource(Locale locale, String baseName, String suffix) {
@@ -70,6 +52,7 @@ public class StudentTestingApp {
             if (url != null) {
                 File file = new File(url.getFile());
                 return file.getName();
+//                return url.getFile();
             }
         }
         return null;

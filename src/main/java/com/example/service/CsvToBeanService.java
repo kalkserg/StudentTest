@@ -44,16 +44,11 @@ public class CsvToBeanService {
         // Create csvreader object
         CSVReader csvReader = null;
         try {
-            InputStream inputStream = StudentTestingApp.class.getResourceAsStream("/" + fileName);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//
-//            System.out.println(StudentTestingApp.class.getResource("/Question_ru.csv"));
+            fileName = "/" + fileName;
+            InputStream inputStream = StudentTestingApp.class.getResourceAsStream(fileName);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
 //            File file = ResourceUtils.getFile(fileName);
-//            String filename = file.getName();
-//            System.out.println(filename);
-
 //            Reader reader = Files.newBufferedReader(file.toPath());
 
             CSVParser parser = new CSVParserBuilder()
@@ -78,7 +73,7 @@ public class CsvToBeanService {
         try {
             list = csvToBean.parse();
         } catch (Exception ex) {
-            System.out.println("Wrong format file  ");
+            System.out.println("Wrong format file " + fileName);
             System.exit(1);
         }
 

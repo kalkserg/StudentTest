@@ -7,6 +7,7 @@ import com.example.service.CsvToBeanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -25,7 +26,8 @@ public class ExercisesView {
 
         System.out.println(rb.getString("welcome"));
 
-        Scanner myScanner = new Scanner(System.in);
+        Scanner myScanner = new Scanner(System.in, "CP866");
+//        Scanner myScanner = new Scanner(System.in, "UTF-8");
 
         System.out.print(rb.getString("firstname"));
         String firstName = myScanner.nextLine();
@@ -38,7 +40,7 @@ public class ExercisesView {
             System.out.println(rb.getString("question") + (++count) + ": " + e.getQuestion() + " (" + e.getWeight() + " " + rb.getString("weight") + ")");
             System.out.print(rb.getString("answer") + count + ": ");
             String answer = myScanner.nextLine();
-            if (answer.equals(e.getAnswer())) {
+            if (answer.trim().toLowerCase().equals(e.getAnswer().trim().toLowerCase(Locale.ROOT))) {
                 System.out.println("\t" + rb.getString("right"));
                 e.setMark(true);
             } else {
