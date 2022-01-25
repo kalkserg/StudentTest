@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -46,7 +47,7 @@ public class CsvToBeanService {
         try {
             fileName = "/" + fileName;
             InputStream inputStream = StudentTestingApp.class.getResourceAsStream(fileName);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
 //            File file = ResourceUtils.getFile(fileName);
 //            Reader reader = Files.newBufferedReader(file.toPath());

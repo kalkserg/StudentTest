@@ -7,6 +7,7 @@ import com.example.service.CsvToBeanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -26,8 +27,7 @@ public class ExercisesView {
 
         System.out.println(rb.getString("welcome"));
 
-        Scanner myScanner = new Scanner(System.in, "CP866");
-//        Scanner myScanner = new Scanner(System.in, "UTF-8");
+        Scanner myScanner = new Scanner(System.in, Charset.defaultCharset());
 
         System.out.print(rb.getString("firstname"));
         String firstName = myScanner.nextLine();
