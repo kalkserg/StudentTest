@@ -9,16 +9,12 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +33,7 @@ public class CsvToBeanService {
         mapping.put("Weight", "weight");
 
         // HeaderColumnNameTranslateMappingStrategy
-        // for  class
+        // for class
         HeaderColumnNameTranslateMappingStrategy<Exercise> strategy = new HeaderColumnNameTranslateMappingStrategy<Exercise>();
         strategy.setType(Exercise.class);
         strategy.setColumnMapping(mapping);
@@ -48,9 +44,6 @@ public class CsvToBeanService {
             fileName = "/" + fileName;
             InputStream inputStream = StudentTestingApp.class.getResourceAsStream(fileName);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-
-//            File file = ResourceUtils.getFile(fileName);
-//            Reader reader = Files.newBufferedReader(file.toPath());
 
             CSVParser parser = new CSVParserBuilder()
                     .withSeparator(';')
@@ -63,9 +56,6 @@ public class CsvToBeanService {
         } catch (Exception e) {
             System.out.println("File not found " + fileName);
             System.exit(1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            System.exit(1);
         }
         CsvToBean<Exercise> csvToBean = new CsvToBean<>();
         csvToBean.setCsvReader(csvReader);
@@ -77,12 +67,6 @@ public class CsvToBeanService {
             System.out.println("Wrong format file " + fileName);
             System.exit(1);
         }
-
-        // print details of Bean object
-//        for (Entity e : list) {
-//            System.out.println(e.getQuestion().toString());
-//            System.out.println(e.getAnswer().toString());
-//        }
         return new ExercisesList(list);
     }
 

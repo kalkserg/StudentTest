@@ -1,7 +1,5 @@
 package com.example.model;
 
-import org.springframework.context.annotation.Bean;
-
 public class Exercise {
 
     private Integer id;
