@@ -1,6 +1,6 @@
 @ECHO OFF
-REM change CHCP to UTF-8
+REM change CHCP to 1251
 chcp 1251
 CLS
 
- cmd /k c:\progra~1\Java\jdk-11.0.10\bin\java -jar ./target/StudentTestingApp.jar
+cmd /k java -jar ./target/ExerciseApplication-0.0.1-SNAPSHOT.jar

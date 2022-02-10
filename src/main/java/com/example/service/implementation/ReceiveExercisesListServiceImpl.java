@@ -1,8 +1,9 @@
-package com.example.service;
+package com.example.service.implementation;
 
-import com.example.StudentTestingApp;
+import com.example.ExercisesApplication;
 import com.example.model.Exercise;
 import com.example.model.ExercisesList;
+import com.example.service.ReceiveExercisesListService;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
@@ -20,29 +21,34 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CsvToBeanService {
+public class ReceiveExercisesListServiceImpl implements ReceiveExercisesListService {
 
-    private String fileName;
+    private static String csvFileName;
 
+    public static void setCsvFileName(String csvFileName) {
+        ReceiveExercisesListServiceImpl.csvFileName = csvFileName;
+    }
+
+    @Override
     public ExercisesList getList() {
+
         // Hashmap to map CSV data to Bean attributes.
         Map<String, String> mapping = new HashMap<String, String>();
         mapping.put("Id", "id");
         mapping.put("Question", "question");
         mapping.put("Answer", "answer");
-        mapping.put("Weight", "weight");
+        mapping.put("Score", "Score");
 
         // HeaderColumnNameTranslateMappingStrategy
-        // for class
         HeaderColumnNameTranslateMappingStrategy<Exercise> strategy = new HeaderColumnNameTranslateMappingStrategy<Exercise>();
         strategy.setType(Exercise.class);
         strategy.setColumnMapping(mapping);
 
-        // Create csvreader object
+        // Create csv reader object
         CSVReader csvReader = null;
         try {
-            fileName = "/" + fileName;
-            InputStream inputStream = StudentTestingApp.class.getResourceAsStream(fileName);
+            csvFileName = "/" + csvFileName;
+            InputStream inputStream = ExercisesApplication.class.getResourceAsStream(csvFileName);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
             CSVParser parser = new CSVParserBuilder()
@@ -54,7 +60,7 @@ public class CsvToBeanService {
                     .withCSVParser(parser)
                     .build();
         } catch (Exception e) {
-            System.out.println("File not found " + fileName);
+            System.out.println("File not found " + csvFileName);
             System.exit(1);
         }
         CsvToBean<Exercise> csvToBean = new CsvToBean<>();
@@ -64,18 +70,10 @@ public class CsvToBeanService {
         try {
             list = csvToBean.parse();
         } catch (Exception ex) {
-            System.out.println("Wrong format file " + fileName);
+            System.out.println("Wrong format file " + csvFileName);
             System.exit(1);
         }
         return new ExercisesList(list);
-    }
-
-    public String getFile() {
-        return fileName;
-    }
-
-    public void setFile(String fileName) {
-        this.fileName = fileName;
     }
 
 }

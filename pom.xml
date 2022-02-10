@@ -11,14 +11,14 @@
 	</parent>
 
 	<groupId>com.example</groupId>
-	<artifactId>StudentTestingApp</artifactId>
+	<artifactId>ExerciseApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>StudentTestingApp</name>
+	<name>ExerciseApplication</name>
 	<description>Demo project for Spring</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
@@ -39,77 +39,16 @@
 			<scope>test</scope>
 		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--			</plugin>-->
-
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.example.StudentTestingApp</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${project.parent.version}</version>
 			</plugin>
 		</plugins>
 	</build>
-<!--	<repositories>-->
-<!--		<repository>-->
-<!--			<id>spring-milestones</id>-->
-<!--			<name>Spring Milestones</name>-->
-<!--			<url>https://repo.spring.io/milestone</url>-->
-<!--			<snapshots>-->
-<!--				<enabled>false</enabled>-->
-<!--			</snapshots>-->
-<!--		</repository>-->
-<!--		<repository>-->
-<!--			<id>spring-snapshots</id>-->
-<!--			<name>Spring Snapshots</name>-->
-<!--			<url>https://repo.spring.io/snapshot</url>-->
-<!--			<releases>-->
-<!--				<enabled>false</enabled>-->
-<!--			</releases>-->
-<!--		</repository>-->
-<!--	</repositories>-->
-<!--	<pluginRepositories>-->
-<!--		<pluginRepository>-->
-<!--			<id>spring-milestones</id>-->
-<!--			<name>Spring Milestones</name>-->
-<!--			<url>https://repo.spring.io/milestone</url>-->
-<!--			<snapshots>-->
-<!--				<enabled>false</enabled>-->
-<!--			</snapshots>-->
-<!--		</pluginRepository>-->
-<!--		<pluginRepository>-->
-<!--			<id>spring-snapshots</id>-->
-<!--			<name>Spring Snapshots</name>-->
-<!--			<url>https://repo.spring.io/snapshot</url>-->
-<!--			<releases>-->
-<!--				<enabled>false</enabled>-->
-<!--			</releases>-->
-<!--		</pluginRepository>-->
-<!--	</pluginRepositories>-->
 
 </project>
