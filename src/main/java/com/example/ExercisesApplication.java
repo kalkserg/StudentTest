@@ -30,7 +30,7 @@ public class ExercisesApplication {
         //get List of exercises from CSV file
         String filename = LocalizedResource.getLocalizedResource(currentLocale, "Question", "csv");
         ReceiveExercisesListServiceImpl receiveExercisesListServiceImpl = (ReceiveExercisesListServiceImpl) context.getBean("receiveExercisesListServiceImpl");
-        ReceiveExercisesListServiceImpl.setCsvFileName(filename);
+        receiveExercisesListServiceImpl.setCsvFileName(filename);
 
         //start
         ExercisesView exercisesView = (ExercisesView) context.getBean("exercisesView");

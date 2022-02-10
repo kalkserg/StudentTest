@@ -23,10 +23,11 @@ import java.util.Map;
 @Service
 public class ReceiveExercisesListServiceImpl implements ReceiveExercisesListService {
 
-    private static String csvFileName;
+    private String csvFileName;
 
-    public static void setCsvFileName(String csvFileName) {
-        ReceiveExercisesListServiceImpl.csvFileName = csvFileName;
+    @Override
+    public void setCsvFileName(String csvFileName) {
+        this.csvFileName = csvFileName;
     }
 
     @Override
